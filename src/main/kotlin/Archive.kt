@@ -1,0 +1,1 @@
+class Archive(var notes: MutableList<String> = mutableListOf())
