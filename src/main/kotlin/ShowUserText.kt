@@ -1,6 +1,6 @@
 class ShowUserText {
     companion object {
-        fun showMainMenu(){
+        fun showMainMenu() {
             println(
                 "Выберите действие:\n" +
                         "0. Создать архив\n" +
@@ -11,7 +11,7 @@ class ShowUserText {
             )
         }
 
-        fun showArchiveMenu(){
+        fun showArchiveMenu() {
             println(
                 "Выберите действие с архивом:\n" +
                         "0. Создать заметку\n" +
@@ -23,13 +23,13 @@ class ShowUserText {
             )
         }
 
-        fun showNoteMenu(){
+        fun showNoteMenu() {
             println(
-                    "0. Редактироввать заметку\n" +
-                    "1. Удалить заметку\n" +
-                    "2. Вернуться к выбору заметок" +
-                    "\n" +
-                    "Введите цифру: "
+                "0. Редактироввать заметку\n" +
+                        "1. Удалить заметку\n" +
+                        "2. Вернуться к выбору заметок" +
+                        "\n" +
+                        "Введите цифру: "
             )
         }
 

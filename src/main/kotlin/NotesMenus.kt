@@ -41,22 +41,32 @@ open class NotesMenus {
         while (true) {
             val userAnswer = MenusLogic.chekUserAnswer(0..3, 1)
 
-            when (userAnswer){
+            when (userAnswer) {
                 0 -> {
-                    println("Введите текст заметки:")
-                    MenusLogic.makeNewObj(archive.notes, scanner.nextLine())
-                    println("Заметка создана\n")
+                    while (true) {
+                        println("Введите текст заметки:")
+                        val newNote = scanner.nextLine()
+                        if (newNote == "") {
+                            println("Заметка не может быть пустой")
+                        } else {
+                            MenusLogic.makeNewObj(archive.notes, newNote)
+                            println("Заметка создана\n")
+                            break
+                        }
+                    }
                 }
 
                 1 -> {
-                    if(archive.notes.size != 0){
-                        archive.notes.forEachIndexed { index, it -> println("Заметка №${index + 1}: '$it'")  }
-                        val note = archive.notes[MenusLogic.chekUserAnswer(1..archive.notes.size, 4) - 1]
+                    if (archive.notes.size != 0) {
+                        archive.notes.forEachIndexed { index, it -> println("Заметка №${index + 1}: '$it'") }
+                        val note =
+                            archive.notes[MenusLogic.chekUserAnswer(1..archive.notes.size, 4) - 1]
                         noteMenu(note, archive)
                     } else {
                         println("Ошибка!!! В архиве нет заметок\n")
                     }
                 }
+
                 2 -> {
                     MenusLogic.removeObj(archiveCatalog, archive)
                     println("Архив удален\n")
@@ -68,10 +78,10 @@ open class NotesMenus {
         }
     }
 
-    fun noteMenu(note: String, archive: Archive){
+    fun noteMenu(note: String, archive: Archive) {
         var notE = note
 
-        while (true){
+        while (true) {
             println("\nВыбранная заметка №${(archive.notes.indexOf(notE) + 1)}: $notE")
             val userAnswer = MenusLogic.chekUserAnswer(0..2, 2)
 
