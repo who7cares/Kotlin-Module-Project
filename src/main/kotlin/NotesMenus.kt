@@ -11,7 +11,8 @@ open class NotesMenus {
             val userAnswer = MenusLogic.chekUserAnswer(0..2, 0)
             when (userAnswer) {
                 0 -> {
-                    MenusLogic.makeNewObj(archiveCatalog, Archive())
+                    val arhiveName = MenusLogic.createName("имя архива")
+                    MenusLogic.makeNewObj(archiveCatalog, Archive(arhiveName))
                     println("Архив создан\n")
                 }
 
@@ -20,7 +21,7 @@ open class NotesMenus {
                         println("Ошибка!!! Список архивов пуст\n")
                         continue
                     } else {
-                        archiveCatalog.forEachIndexed { index, archive -> println("Архив №${index + 1} содержит ${archive.notes.size} заметок") }
+                        archiveCatalog.forEachIndexed { index, archive -> println("Архив ${archive.name} №${index + 1} содержит ${archive.notes.size} заметок") }
                         val archiveIndex = MenusLogic.chekUserAnswer(1..archiveCatalog.size, 3) - 1
                         // передаем выбранный архив в экран архивов
                         archiveMenu(archiveCatalog[archiveIndex])
@@ -43,22 +44,18 @@ open class NotesMenus {
 
             when (userAnswer) {
                 0 -> {
-                    while (true) {
-                        println("Введите текст заметки:")
-                        val newNote = scanner.nextLine()
-                        if (newNote == "") {
-                            println("Заметка не может быть пустой")
-                        } else {
-                            MenusLogic.makeNewObj(archive.notes, newNote)
-                            println("Заметка создана\n")
-                            break
-                        }
-                    }
+
+                    val newNoteName = MenusLogic.createName("имя заметки")
+                    val newNote = MenusLogic.createName("текст заметки")
+
+                    MenusLogic.makeNewObj(archive.notes, newNote)
+                    MenusLogic.makeNewObj(archive.notesNames, newNoteName)
+                    println("Заметка создана\n")
                 }
 
                 1 -> {
                     if (archive.notes.size != 0) {
-                        archive.notes.forEachIndexed { index, it -> println("Заметка №${index + 1}: '$it'") }
+                        archive.notes.forEachIndexed { index, it -> println("Заметка ${archive.notesNames[index]} №${index + 1}: '$it'") }
                         val note =
                             archive.notes[MenusLogic.chekUserAnswer(1..archive.notes.size, 4) - 1]
                         noteMenu(note, archive)
@@ -95,6 +92,7 @@ open class NotesMenus {
                 }
 
                 1 -> {
+                    MenusLogic.removeObj(archive.notesNames, archive.notesNames.elementAt(archive.notes.indexOf(notE)))
                     MenusLogic.removeObj(archive.notes, notE)
                     println("Заметка удалена")
                     break

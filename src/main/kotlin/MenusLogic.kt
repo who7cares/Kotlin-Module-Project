@@ -14,6 +14,18 @@ class MenusLogic {
 
         }
 
+        fun createName(whatName:String): String {
+            scanner.nextLine()
+            while (true) {
+                println("Введите $whatName:")
+                val name = scanner.nextLine()
+                if (name != "") return name
+                else println("Ошибка!!! Поле не может быть пустым")
+            }
+        }
+
+
+
         fun chekUserAnswer(options: IntRange, menuScreen: Int): Int {
             while (true) {
                 // три экрана меню: 0 - Главный; 1 - Архивы; 2 - Заметки.
