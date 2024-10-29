@@ -21,7 +21,7 @@ open class NotesMenus {
                         println("Ошибка!!! Список архивов пуст\n")
                         continue
                     } else {
-                        archiveCatalog.forEachIndexed { index, archive -> println("Архив ${archive.name} №${index + 1} содержит ${archive.notes.size} заметок") }
+                        archiveCatalog.forEachIndexed { index, archive -> println("Архив №${index + 1} ${archive.name} содержит ${archive.notes.size} заметок") }
                         val archiveIndex = MenusLogic.chekUserAnswer(1..archiveCatalog.size, 3) - 1
                         // передаем выбранный архив в экран архивов
                         archiveMenu(archiveCatalog[archiveIndex])
@@ -44,7 +44,6 @@ open class NotesMenus {
 
             when (userAnswer) {
                 0 -> {
-
                     val newNoteName = MenusLogic.createName("имя заметки")
                     val newNote = MenusLogic.createName("текст заметки")
 
@@ -55,7 +54,7 @@ open class NotesMenus {
 
                 1 -> {
                     if (archive.notes.size != 0) {
-                        archive.notes.forEachIndexed { index, it -> println("Заметка ${archive.notesNames[index]} №${index + 1}: '$it'") }
+                        archive.notes.forEachIndexed { index, it -> println("Заметка №${index + 1} ${archive.notesNames[index]} : '$it'") }
                         val note =
                             archive.notes[MenusLogic.chekUserAnswer(1..archive.notes.size, 4) - 1]
                         noteMenu(note, archive)
@@ -92,7 +91,10 @@ open class NotesMenus {
                 }
 
                 1 -> {
-                    MenusLogic.removeObj(archive.notesNames, archive.notesNames.elementAt(archive.notes.indexOf(notE)))
+                    MenusLogic.removeObj(
+                        archive.notesNames,
+                        archive.notesNames.elementAt(archive.notes.indexOf(notE))
+                    )
                     MenusLogic.removeObj(archive.notes, notE)
                     println("Заметка удалена")
                     break

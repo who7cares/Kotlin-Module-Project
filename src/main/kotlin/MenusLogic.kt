@@ -14,8 +14,7 @@ class MenusLogic {
 
         }
 
-        fun createName(whatName:String): String {
-            scanner.nextLine()
+        fun createName(whatName: String): String {
             while (true) {
                 println("Введите $whatName:")
                 val name = scanner.nextLine()
@@ -25,11 +24,10 @@ class MenusLogic {
         }
 
 
-
         fun chekUserAnswer(options: IntRange, menuScreen: Int): Int {
             while (true) {
                 // три экрана меню: 0 - Главный; 1 - Архивы; 2 - Заметки.
-                when(menuScreen){
+                when (menuScreen) {
                     0 -> ShowUserText.showMainMenu()
                     1 -> ShowUserText.showArchiveMenu()
                     2 -> ShowUserText.showNoteMenu()
@@ -37,18 +35,29 @@ class MenusLogic {
                     4 -> println("Выберите номер заметки:")
                 }
 
-                if (scanner.hasNextInt()) {
-                    val chek = scanner.nextInt()
-
-                    if (chek in options) {
-                        return chek
-                    } else {
-                        println("Ошибка!!! Число вне диапазона\n")
-                    }
-                } else {
-                    println("Ошибка!!! Введено не число\n")
-                    scanner.next()
+                val chek: Int
+                try {
+                    chek = scanner.nextLine().toInt()
+                } catch (e: Exception) {
+                    println("Ошибка!!! Введено не число")
+                    continue
                 }
+
+                if (chek in options) {
+                    return chek
+                } else {
+                    println("Ошибка!!! Число вне диапазона\n")
+                }
+
+
+//                if (scanner.hasNextInt()) {
+//                    val chek = scanner.nextInt()
+//
+//
+//                } else {
+//                    println("Ошибка!!! Введено не число\n")
+//                    scanner.next()
+//                }
             }
         }
     }
